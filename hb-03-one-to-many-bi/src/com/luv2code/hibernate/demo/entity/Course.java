@@ -1,10 +1,13 @@
 package com.luv2code.hibernate.demo.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,14 +16,16 @@ public class Course {
 
 	// properties
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
 	@Column(name = "title")
 	private String title;
 	
-	@Column(name = "instructor_id")
+	// define association with Instructor class
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}) // do not want to delete instructor when we delete course or vise versa
+	@JoinColumn(name = "instructor_id") // name references a column in the course table while points at the associated row in instructor table
 	private Instructor instructor;
 	
 	// constructors

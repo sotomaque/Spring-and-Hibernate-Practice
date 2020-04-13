@@ -1,5 +1,8 @@
 package com.luv2code.hibernate.demo.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -37,6 +41,14 @@ public class Instructor {
 	private InstructorDetail instructorDetail;
 	
 	
+	// add entry for list of course
+	// add association with courses class
+	// ensure cascade type matches requirements
+	@OneToMany(mappedBy = "instructor", // mappedBy refers to the "instructor" property in the "course" class
+			cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}) 
+	private List<Course> courses;
+	
+
 	// create constructors
 	public Instructor() {
 	}
@@ -49,6 +61,14 @@ public class Instructor {
 
 		
 	// generate getters/ setter methods
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -88,7 +108,16 @@ public class Instructor {
 	public void setInstructorDetail(InstructorDetail instructorDetail) {
 		this.instructorDetail = instructorDetail;
 	}
-
+	
+	// add convenience methods for bi-directional relationships
+	public void add(Course tempCourse) {
+		if (courses == null) {
+			courses = new ArrayList<>();
+		}
+		courses.add(tempCourse);	
+		tempCourse.setInstructor(this);
+	}
+	
 
 	// generate toString() method
 	@Override
