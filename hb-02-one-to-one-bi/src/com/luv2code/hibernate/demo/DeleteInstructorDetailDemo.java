@@ -40,7 +40,10 @@ public class DeleteInstructorDetailDemo {
 			System.out.println(">> associated instructor: " + tempDetail.getInstructor());
 			System.out.println("\n");
 			
-			// need to remove the association and break the link to avoid resaving by cascade
+			// 
+			// KEY for this example!
+			// need to remove the association and break the link to avoid re-saving by cascade
+			//
 			tempDetail.getInstructor().setInstructorDetail(null);
 			
 			// delete instructor detail
