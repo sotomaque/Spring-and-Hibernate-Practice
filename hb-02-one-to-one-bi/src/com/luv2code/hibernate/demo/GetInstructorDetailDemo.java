@@ -28,8 +28,8 @@ public class GetInstructorDetailDemo {
 			// start a transaction
 			session.beginTransaction();
 			
-			// get instructor detail obj
-			int theId = 1;
+			// get instructor detail object
+			int theId = 24324;
 			InstructorDetail tempDetail = session.get(InstructorDetail.class, theId);
 			
 			// print inst. detail
@@ -43,7 +43,12 @@ public class GetInstructorDetailDemo {
 			// commit transaction
 			session.getTransaction().commit();
 
+		} catch(Exception exc) {
+			exc.printStackTrace();
 		} finally {
+			// handle connection leak issue when "theId" references non-existing obj
+			session.close();
+			
 			// close factory
 			factory.close();
 		}
