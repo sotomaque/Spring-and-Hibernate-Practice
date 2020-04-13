@@ -32,8 +32,9 @@ public class InstructorDetail {
 	
 	// ** ADD NEW FIELD TO REFERENCE INSTRUCTOR ** //
 	// Add annotation to the instructor field
-	@OneToOne(mappedBy = "instructorDetail", cascade = CascadeType.ALL) // mapped by refers to the "instructorDetail" property
-											 							// in the Instructor class 
+	@OneToOne(mappedBy = "instructorDetail", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) 
+	// mapped by refers to the "instructorDetail" property
+	// in the Instructor class 
 	private Instructor instructor;
 	
 	// add getter / setter methods for Instructor

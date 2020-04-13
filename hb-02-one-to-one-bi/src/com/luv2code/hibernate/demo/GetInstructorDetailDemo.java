@@ -42,7 +42,8 @@ public class GetInstructorDetailDemo {
 			
 			// commit transaction
 			session.getTransaction().commit();
-
+			System.out.println("DONE");
+			
 		} catch(Exception exc) {
 			exc.printStackTrace();
 		} finally {

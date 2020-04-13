@@ -29,7 +29,7 @@ public class DeleteInstructorDetailDemo {
 			session.beginTransaction();
 			
 			// get instructor detail object
-			int theId = 1;
+			int theId = 4;
 			InstructorDetail tempDetail = session.get(InstructorDetail.class, theId);
 			
 			// print inst. detail
@@ -39,6 +39,9 @@ public class DeleteInstructorDetailDemo {
 			// print associated instructor (using getter method we generated)
 			System.out.println(">> associated instructor: " + tempDetail.getInstructor());
 			System.out.println("\n");
+			
+			// need to remove the association and break the link to avoid resaving by cascade
+			tempDetail.getInstructor().setInstructorDetail(null);
 			
 			// delete instructor detail
 			//
@@ -50,6 +53,7 @@ public class DeleteInstructorDetailDemo {
 			// commit transaction
 			session.getTransaction().commit();
 			System.out.println("DONE");
+			
 		} catch(Exception exc) {
 			exc.printStackTrace();
 		} finally {

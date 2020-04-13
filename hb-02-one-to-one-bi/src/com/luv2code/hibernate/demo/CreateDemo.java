@@ -45,6 +45,7 @@ public class CreateDemo {
 			
 			// commit transaction
 			session.getTransaction().commit();
+			System.out.println("DONE");
 			
 		} finally {
 			// close factory
